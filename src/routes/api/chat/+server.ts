@@ -13,7 +13,7 @@ const openai = createOpenAI({
 
 const ollama = createOllama();
 
-const user_info = "- My name is Mae.\n- I am transgender (MtF) and go by she/her pronouns.\n- I am 18 years old and in grade 12."
+//const user_info = "- My name is Mae.\n- I am transgender (MtF) and go by she/her pronouns.\n- I am 18 years old and in grade 12."
 
 export async function POST({ request, locals }) {
   const { messages, id } = await request.json();
@@ -21,7 +21,7 @@ export async function POST({ request, locals }) {
   const result = streamText({
     model: openai.responses("gpt-4o-mini"),
     messages,
-    system: "You are a friendly and helpful assistant. Use a friendly, encouraging tone. If asked for realtime data, use your web search tool to access it. The user has provided the following information to tailor your responses: \n" + user_info + "\n Only bring up the user's info when it is related to the topic at hand.",
+    system: "You are a friendly and helpful assistant. Use a friendly, encouraging tone. If asked for realtime data, use your web search tool to access it.",
     maxSteps: 5,
     tools: {
       web_search_preview: openai.tools.webSearchPreview()
