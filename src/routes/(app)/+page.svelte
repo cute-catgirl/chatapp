@@ -9,4 +9,4 @@
 	let { data }: { data: PageServerData } = $props();
 </script>
 
-<ChatView newChat></ChatView>
+<ChatView newChat systemPrompt={data.systemPrompt}></ChatView>

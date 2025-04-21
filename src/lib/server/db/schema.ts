@@ -17,7 +17,9 @@ export const session = sqliteTable('session', {
 
 export const chat = sqliteTable('chat', {
 	id: text('id').primaryKey(),
-	userId: text('user_id').notNull().references(() => user.id),
+	userId: text('user_id')
+		.notNull()
+		.references(() => user.id),
 	name: text('name').notNull(),
 	createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
 	updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull()
@@ -33,6 +35,14 @@ export const message = sqliteTable('message', {
 	createdAt: integer('created_at', { mode: 'timestamp' }).notNull()
 });
 
+export const userSettings = sqliteTable('user_settings', {
+	userId: text('user_id')
+		.notNull()
+		.references(() => user.id),
+	key: text('key').notNull(),
+	value: text('value').notNull()
+});
+
 export type Session = typeof session.$inferSelect;
 
 export type User = typeof user.$inferSelect;
@@ -40,3 +50,5 @@ export type User = typeof user.$inferSelect;
 export type Chat = typeof chat.$inferSelect;
 
 export type Message = typeof message.$inferSelect;
+
+export type UserSettings = typeof userSettings.$inferSelect;

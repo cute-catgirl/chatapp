@@ -9,7 +9,7 @@ const handle: Handle = async ({ event, resolve }) => {
 			headers: {
 				'Access-Control-Allow-Origin': '*', // Change to specific origin if needed
 				'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-				'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+				'Access-Control-Allow-Headers': 'Content-Type, Authorization'
 			}
 		});
 	}

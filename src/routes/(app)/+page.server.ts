@@ -1,12 +1,15 @@
 import * as auth from '$lib/server/auth';
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
+import { getUserSetting, getUserSystemPrompt } from '$lib/server/settings';
 
 export const load: PageServerLoad = async (event) => {
 	if (!event.locals.user) {
 		return redirect(302, '/login');
 	}
-	return { user: event.locals.user };
+	// Load system prompt from user settings
+	let systemPrompt = await getUserSystemPrompt(event.locals.user.id);
+	return { user: event.locals.user, systemPrompt: systemPrompt ? systemPrompt : '' };
 };
 
 export const actions: Actions = {

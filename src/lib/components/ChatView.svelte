@@ -9,7 +9,7 @@
 	import { ArrowUp } from '@lucide/svelte';
 	import MessageInput from './MessageInput.svelte';
 
-	let { id = null, initialMessages = [], newChat = false } = $props();
+	let { id = null, initialMessages = [], systemPrompt = '', newChat = false } = $props();
 
 	const chat = $derived(
 		new Chat({
@@ -20,6 +20,9 @@
 				prefix: 'msgc',
 				size: 16
 			}),
+			body: {
+				system: systemPrompt
+			},
 			sendExtraMessageFields: true,
 			onFinish: async (message) => {
 				if (newChat) {

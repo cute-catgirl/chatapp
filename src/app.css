@@ -2,5 +2,5 @@
 @plugin '@tailwindcss/typography';
 
 @theme {
-    --font-sans: 'Inter', sans-serif;
+	--font-sans: 'Inter', sans-serif;
 }
