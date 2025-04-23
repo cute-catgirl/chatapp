@@ -3,7 +3,7 @@
 </script>
 
 <aside
-	class="border-r border-neutral-200 bg-white w-72 h-screen flex flex-col justify-between gap-2 p-4"
+	class="border-r border-neutral-200 bg-white min-w-64 h-screen flex flex-col justify-between gap-2 p-4"
 >
 	<div class="flex flex-col gap-2 overflow-scroll">
 		{@render children?.()}

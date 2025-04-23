@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Button } from 'bits-ui';
 	import { SendHorizontal } from '@lucide/svelte';
+	import ModelPicker from './ModelPicker.svelte';
 
 	let { send, message = $bindable() } = $props();
 

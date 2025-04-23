@@ -6,6 +6,7 @@ import { OPENAI_API_KEY } from '$env/static/private';
 import { getChat, saveChat } from '$lib/server/chat-store';
 import { redirect } from '@sveltejs/kit';
 import { tools } from '$lib/server/tools';
+import { registry } from '$lib/server/registry';
 
 const openai = createOpenAI({
 	apiKey: OPENAI_API_KEY
@@ -16,16 +17,12 @@ const ollama = createOllama();
 //const user_info = "- My name is Mae.\n- I am transgender (MtF) and go by she/her pronouns.\n- I am 18 years old and in grade 12."
 
 export async function POST({ request, locals }) {
-	const { messages, system = null, id } = await request.json();
+	const { messages, system = null, model = "openai:mini", id } = await request.json();
 
-	const result = streamText({
-		model: openai.responses('gpt-4.1-mini'),
-		//model: ollama("gemma3:latest"),
-		messages,
-		system,
-		maxSteps: 5,
-		tools: {
-			web_search_preview: openai.tools.webSearchPreview({
+	let tools = {}
+
+	if (model != "openai:nano") {
+		tools['web_search_preview'] = openai.tools.webSearchPreview({
 				userLocation: {
 					type: 'approximate',
 					city: 'Calgary',
@@ -33,8 +30,15 @@ export async function POST({ request, locals }) {
 					region: 'Alberta',
 					timezone: 'America/Edmonton'
 				}
-			})
-		},
+			});
+	}
+
+	const result = streamText({
+		model: registry.languageModel(model),
+		messages,
+		system,
+		maxSteps: 5,
+		tools,
 		providerOptions: {
 			openai: {
 				store: true
@@ -44,6 +48,9 @@ export async function POST({ request, locals }) {
 			prefix: 'msgs',
 			size: 16
 		}),
+		async onError({ error }) {
+			console.error('Error:', error);
+		},
 		async onFinish({ response }) {
 			// Flatten messages and response messages into a single array
 			const allMessages = [...messages, ...response.messages];

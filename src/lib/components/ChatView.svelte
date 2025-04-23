@@ -5,9 +5,11 @@
 	import { Chat } from '@ai-sdk/svelte';
 	import Markdown from '@magidoc/plugin-svelte-marked';
 	import { createIdGenerator } from 'ai';
+	import { globalState } from '../../globalData.svelte';
 
 	import { ArrowUp } from '@lucide/svelte';
 	import MessageInput from './MessageInput.svelte';
+	import ModelPicker from './ModelPicker.svelte';
 
 	let { id = null, initialMessages = [], systemPrompt = '', newChat = false } = $props();
 
@@ -21,7 +23,8 @@
 				size: 16
 			}),
 			body: {
-				system: systemPrompt
+				system: systemPrompt,
+				model: globalState.selectedModel,
 			},
 			sendExtraMessageFields: true,
 			onFinish: async (message) => {
@@ -37,7 +40,10 @@
 	);
 </script>
 
-<main class="flex flex-col justify-between items-center p-4 gap-2 w-full h-screen bg-white">
+<main class="flex flex-col justify-between items-center p-2 gap-2 w-full h-screen bg-white">
+	<header class="flex justify-start w-full">
+		<ModelPicker bind:model={globalState.selectedModel} />
+	</header>
 	<div class="overflow-y-scroll w-full flex m-auto">
 		<div class="w-full max-w-3xl m-auto">
 			{#each chat.messages as message, messageIndex (messageIndex)}

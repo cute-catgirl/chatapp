@@ -33,6 +33,7 @@
 					type="text"
 					id="name"
 					name="name"
+					placeholder="Name"
 					value={data.name}
 					class="p-3 border border-neutral-300 rounded-lg text-neutral-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
 				/>
@@ -46,6 +47,7 @@
 					type="text"
 					id="pronouns"
 					name="pronouns"
+					placeholder="Pronouns"
 					value={data.pronouns}
 					class="p-3 border border-neutral-300 rounded-lg text-neutral-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
 				/>
@@ -58,6 +60,7 @@
 				<textarea
 					id="info"
 					name="info"
+					placeholder="Info"
 					class="p-3 border border-neutral-300 rounded-lg text-neutral-900 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
 					rows="6">{data.info}</textarea
 				>

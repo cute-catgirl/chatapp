@@ -36,7 +36,6 @@ export async function setUserSetting(userId, key, value) {
 
 export async function getUserSystemPrompt(userId) {
 	const isSimple = await getUserSetting(userId, 'sp_is_simple');
-	console.log('isSimple', isSimple);
 	if (isSimple === 'true') {
 		const name = await getUserSetting(userId, 'sp_name');
 		const pronouns = await getUserSetting(userId, 'sp_pronouns');
@@ -48,7 +47,6 @@ export async function getUserSystemPrompt(userId) {
 		}
 	}
 	const customPrompt = await getUserSetting(userId, 'systemPrompt');
-	console.log('customPrompt', customPrompt);
 	if (customPrompt) {
 		return customPrompt;
 	}
