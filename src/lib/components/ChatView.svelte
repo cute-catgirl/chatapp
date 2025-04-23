@@ -38,6 +38,7 @@
 			}
 		})
 	);
+	$inspect(chat);
 </script>
 
 <main class="flex flex-col justify-between items-center p-2 gap-2 w-full h-screen bg-white">
