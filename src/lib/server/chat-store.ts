@@ -57,7 +57,7 @@ export async function saveChat(id: string, userId: string, name: string, message
 			.map((msg) => ({
 				id: msg.id || generateId(),
 				chatId: id,
-				role: msg.role,
+				role: msg.role === 'user' ? 'user' : 'assistant',
 				content: JSON.stringify(msg.parts || msg.content),
 				createdAt: new Date()
 			}));
