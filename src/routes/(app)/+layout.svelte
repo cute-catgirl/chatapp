@@ -4,8 +4,13 @@
 	import { page } from '$app/state';
 	import UserCard from '$lib/components/UserCard.svelte';
 	import { DropdownMenu } from 'bits-ui';
+	import { globalState } from '../../globalData.svelte.js';
 
 	let { children, data } = $props();
+
+	if (data.defaultModel) {
+		globalState.selectedModel = data.defaultModel;
+	}
 </script>
 
 <svelte:head>

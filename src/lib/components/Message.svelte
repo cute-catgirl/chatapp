@@ -28,12 +28,22 @@
 						<TextSearch class="inline-block" />
 						<span class="font-semibold">Searching knowledge base...</span>
 					</div>
+				{:else if part.toolInvocation.toolName === 'addResourceTool'}
+					<div class="flex items-center gap-2">
+						<TextSearch class="inline-block" />
+						<span class="font-semibold">Adding resource...</span>
+					</div>
 				{/if}
 			{:else if part.type === 'tool-result'}
 				{#if part.toolName === 'retrieveResourceTool'}
 					<div class="flex items-center gap-2">
 						<TextSearch class="inline-block" />
 						<span class="font-semibold">Searching knowledge base...</span>
+					</div>
+				{:else if part.toolName === 'addResourceTool'}
+					<div class="flex items-center gap-2">
+						<TextSearch class="inline-block" />
+						<span class="font-semibold">Adding resource...</span>
 					</div>
 				{/if}
 			{/if}

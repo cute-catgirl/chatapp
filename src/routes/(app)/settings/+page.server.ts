@@ -12,6 +12,7 @@ export const load: PageServerLoad = async (event) => {
 	let name = await getUserSetting(event.locals.user.id, 'sp_name');
 	let pronouns = await getUserSetting(event.locals.user.id, 'sp_pronouns');
 	let info = await getUserSetting(event.locals.user.id, 'sp_info');
+	let defaultModel = await getUserSetting(event.locals.user.id, 'defaultModel');
 
 	return {
 		user: event.locals.user,
@@ -19,7 +20,8 @@ export const load: PageServerLoad = async (event) => {
 		name: name ? name : '',
 		pronouns: pronouns ? pronouns : '',
 		info: info ? info : '',
-		simpleMode: simpleMode ? simpleMode : 'true'
+		simpleMode: simpleMode ? simpleMode : 'true',
+		defaultModel: defaultModel ? defaultModel : '',
 	};
 };
 
@@ -29,6 +31,7 @@ export const actions: Actions = {
 			return fail(401);
 		}
 		const formData = await event.request.formData();
+		await setUserSetting(event.locals.user.id, 'defaultModel', formData.get('defaultModel')?.toString() || '');
 		const advancedMode = formData.get('advancedMode')?.toString() || 'false';
 		const simpleMode = advancedMode === 'false' ? 'true' : 'false';
 		if (simpleMode === 'true') {

@@ -1,5 +1,6 @@
 import { getChats } from '$lib/server/chat-store';
 import { user } from '$lib/server/db/schema';
+import { getUserSetting } from '$lib/server/settings';
 import type { LayoutServerLoad } from './$types';
 
 export const load: LayoutServerLoad = async (event) => {
@@ -8,9 +9,10 @@ export const load: LayoutServerLoad = async (event) => {
 			chats: []
 		};
 	}
-	console.log(event.locals.user);
+	let defaultModel = await getUserSetting(event.locals.user.id, 'defaultModel');
 	return {
 		chats: await getChats(event.locals.user.id),
-		user: event.locals.user
-	};
+		user: event.locals.user,
+		defaultModel: defaultModel
+	}
 };
